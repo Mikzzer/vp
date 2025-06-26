@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  vproapp
+  namespace: vproapp
+  labels:
+    app:  vproapp
+spec:
+  selector:
+    matchLabels:
+      app: vproapp
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  vproapp
+    spec:
+      containers:
+      - name:  vproapp
+        image:  lislaw48/husarska:app1.0
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        livenessProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /_status/healthz
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        # env:
+        # - name: jdbc.username
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       name: DB_HOST2
+        #       key: DB_HOST3
+        # - name: DB_HOST
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       name: MYAPP
+        #       key: DB_HOST              
+        ports:
+        - containerPort:  8080
+          name:  vproapp
+      restartPolicy: Always
