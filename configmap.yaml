@@ -8,3 +8,4 @@ data:
   DB_USER: root
   DB_PASSWORD: vprodbpass
   memcache: memcached-service.vproapp.svc.cluster.local
+  rabbit: rabbit-service.vproapp.svc.cluster.local

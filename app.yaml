@@ -50,7 +50,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: vproapp-configmap
-              key: memcache                                           
+              key: memcache      
+        - name: rabbit
+          valueFrom:
+            configMapKeyRef:
+              name: vproapp-configmap
+              key: rabbit                                                         
         ports:
         - containerPort:  8080
           name:  vproapp
