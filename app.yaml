@@ -22,43 +22,33 @@ spec:
     spec:
       containers:
       - name:  vproapp
-        image:  lislaw48/husarska:app1.0
+        image:  lislaw48/husarska:app3.0
         resources:
           requests:
             cpu: 100m
             memory: 100Mi
           limits:
-            cpu: 100m
-            memory: 100Mi
-        livenessProbe:
-          tcpSocket:
-            port: 80
-          initialDelaySeconds: 5
-          timeoutSeconds: 5
-          successThreshold: 1
-          failureThreshold: 3
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /_status/healthz
-            port: 80
-          initialDelaySeconds: 5
-          timeoutSeconds: 2
-          successThreshold: 1
-          failureThreshold: 3
-          periodSeconds: 10
-        # env:
-        # - name: jdbc.username
-        #   valueFrom:
-        #     configMapKeyRef:
-        #       name: DB_HOST2
-        #       key: DB_HOST3
-        # - name: DB_HOST
-        #   valueFrom:
-        #     configMapKeyRef:
-        #       name: MYAPP
-        #       key: DB_HOST              
+            cpu: 1000m
+            memory: 1000Mi
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: vproapp-configmap
+              key: DB_HOST
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: vproapp-configmap
+              key: DB_USER   
+        - name: DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: vproapp-configmap
+              key: DB_PASSWORD                             
         ports:
         - containerPort:  8080
           name:  vproapp
       restartPolicy: Always
+
+      

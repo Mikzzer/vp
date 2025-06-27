@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: vproapp
+  name:  vproapp-service
+spec:
+  selector:
+    app:  vproapp
+  type:  ClusterIP
+  ports:
+  - name:  port
+    port:  8080
+    targetPort:  8080
