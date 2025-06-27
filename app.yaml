@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name:  vproapp
-        image:  lislaw48/husarska:app3.0
+        image:  lislaw48/husarska:app4.0
         resources:
           requests:
             cpu: 100m
@@ -45,7 +45,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: vproapp-configmap
-              key: DB_PASSWORD                             
+              key: DB_PASSWORD    
+        - name: memcache
+          valueFrom:
+            configMapKeyRef:
+              name: vproapp-configmap
+              key: memcache                                           
         ports:
         - containerPort:  8080
           name:  vproapp

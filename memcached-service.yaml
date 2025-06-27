@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: vproapp
+  name:  memcached-service
+spec:
+  selector:
+    app:  memcached
+  type:  ClusterIP
+  ports:
+  - name:  memcached
+    port:  11211
+    targetPort:  11211

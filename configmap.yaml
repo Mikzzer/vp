@@ -2,8 +2,9 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: vproapp-configmap
-  namespace: default
+  namespace: vproapp
 data:
-  DB_HOST: mysql-default.svc.cluster.local:3306
+  DB_HOST: mysql-0.mysql.default.svc.cluster.local
   DB_USER: root
   DB_PASSWORD: vprodbpass
+  memcache: memcached-service.vproapp.svc.cluster.local
